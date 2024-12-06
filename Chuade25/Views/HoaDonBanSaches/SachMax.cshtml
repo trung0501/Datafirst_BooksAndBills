@@ -1,0 +1,33 @@
+﻿@model List<Chuade25.Models.Sachmax>
+@{
+    ViewBag.Title = "SachMax";
+}
+@if(Model!=null&&Model.Any())
+{
+<table class="table table-bordered">
+    <tr>
+        <td>Mã sách </td>
+        <td>Tên sách </td>
+        <td>Tác giả </td>
+        <td>Thể loại </td>
+        <td>Đơn giá</td>
+        <td>Số lượng tồn </td>
+        <td>Số lượng bán Max </td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MaSach </td>
+            <td>@item.TenSach</td>
+            <td>@item.TacGia</td>
+            <td>@item.TheLoai </td>
+            <td>@item.DonGia.ToString("C")</td>
+            <td>@item.SoLuongTon </td>
+            <td>@item.TongSLBan </td>
+        </tr>
+    }
+
+</table>
+}
+
+

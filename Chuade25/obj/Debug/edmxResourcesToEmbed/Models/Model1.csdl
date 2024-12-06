@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLSachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="HoaDonBanSach">
+    <Key>
+      <PropertyRef Name="MaHD" />
+    </Key>
+    <Property Name="MaHD" Type="Int32" Nullable="false" />
+    <Property Name="MaSach" Type="Int32" Nullable="false" />
+    <Property Name="KhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NgayBan" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="SoLuong" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Sach" Relationship="Self.FK_HoaDonBanSach_ToSach" FromRole="HoaDonBanSach" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaSach" Type="Int32" Nullable="false" />
+    <Property Name="TenSach" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TheLoai" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TacGia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DonGia" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SoLuongTon" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="HoaDonBanSaches" Relationship="Self.FK_HoaDonBanSach_ToSach" FromRole="Sach" ToRole="HoaDonBanSach" />
+  </EntityType>
+  <Association Name="FK_HoaDonBanSach_ToSach">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+    <End Role="HoaDonBanSach" Type="Self.HoaDonBanSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="HoaDonBanSach">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLSachEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="HoaDonBanSaches" EntityType="Self.HoaDonBanSach" />
+    <EntitySet Name="Saches" EntityType="Self.Sach" />
+    <AssociationSet Name="FK_HoaDonBanSach_ToSach" Association="Self.FK_HoaDonBanSach_ToSach">
+      <End Role="Sach" EntitySet="Saches" />
+      <End Role="HoaDonBanSach" EntitySet="HoaDonBanSaches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

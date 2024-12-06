@@ -1,0 +1,35 @@
+﻿@model List<Chuade25.Models.HoaDonBanSach>
+@{
+    ViewBag.Title = "Timmax";
+}
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered">
+        <tr>
+            <td>Mã HĐ </td>
+            <td>Mã sách </td>
+            <td>Tên sách </td>
+            <td>Khách Hàng </td>
+            <td>Ngày bán</td>
+            <td>Số lượng bán</td>
+            <td>Thành tiền </td>
+          
+        </tr>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.MaHD </td>
+            <td>@item.MaSach </td>
+            <td>@item.Sach.TenSach</td>
+            <td>@item.KhachHang </td>
+            <td>@item.NgayBan </td>
+            <td>@item.SoLuong </td>
+            <td>@ViewBag.TTMax </td>
+        </tr>
+        }
+
+    </table>
+}
+
+
+

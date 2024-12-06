@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLSachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="HoaDonBanSach">
+    <Key>
+      <PropertyRef Name="MaHD" />
+    </Key>
+    <Property Name="MaHD" Type="int" Nullable="false" />
+    <Property Name="MaSach" Type="int" Nullable="false" />
+    <Property Name="KhachHang" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="NgayBan" Type="datetime" Nullable="false" />
+    <Property Name="SoLuong" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaSach" Type="int" Nullable="false" />
+    <Property Name="TenSach" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TheLoai" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="TacGia" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DonGia" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="SoLuongTon" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_HoaDonBanSach_ToSach">
+    <End Role="Sach" Type="Self.Sach" Multiplicity="1" />
+    <End Role="HoaDonBanSach" Type="Self.HoaDonBanSach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sach">
+        <PropertyRef Name="MaSach" />
+      </Principal>
+      <Dependent Role="HoaDonBanSach">
+        <PropertyRef Name="MaSach" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLSachModelStoreContainer">
+    <EntitySet Name="HoaDonBanSach" EntityType="Self.HoaDonBanSach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sach" EntityType="Self.Sach" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_HoaDonBanSach_ToSach" Association="Self.FK_HoaDonBanSach_ToSach">
+      <End Role="Sach" EntitySet="Sach" />
+      <End Role="HoaDonBanSach" EntitySet="HoaDonBanSach" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
